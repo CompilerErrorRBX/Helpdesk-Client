@@ -1,0 +1,49 @@
+<template>
+  <v-list-tile
+    :to="`/tickets/${ticket.id}/${ticket.name}`"
+  >
+    <v-card-text class="px-0">
+      <div class="body-2 grey--text d-block">
+        {{ `Ticket - ${ticket.id}` }}
+        <v-icon small>navigate_next</v-icon>
+        <span class="truncate">{{ ticket.title }}</span>
+      </div>
+      <v-layout row>
+        <v-chip
+          class="chip--x-small"
+          :color="statuses[ticket.status]"
+          disabled
+        >{{ ticket.status }}</v-chip>
+        <v-spacer />
+        <span v-if="ticket.technicians.length">
+          <v-icon small>supervisor_account</v-icon>
+          <span class="caption">{{ ticket.technicians.length }}</span>
+        </span>
+        <span class="ml-1" v-if="ticket.comments.length">
+          <v-icon small>comment</v-icon>
+          <span class="caption">{{ ticket.comments.length }}</span>
+        </span>
+      </v-layout>
+    </v-card-text>
+  </v-list-tile>
+</template>
+
+<script>
+export default {
+  data: () => ({
+    statuses: {
+      Pending: 'amber',
+      'In Progress': 'blue-grey white--text',
+      Resolved: 'green white--text',
+      Closed: 'red white--text',
+    },
+  }),
+  props: {
+    ticket: Object,
+  },
+};
+</script>
+
+<style>
+
+</style>

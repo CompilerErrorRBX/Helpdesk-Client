@@ -64,6 +64,27 @@ module.exports = {
     });
   },
 
+  // POST api/user/:username/addRole/:role
+  UserAddRole(req, res, next) {
+    axios.post(`${HelpdeskServiceURI}/api`,
+      {
+        query: `
+          mutation {
+            userAddRole(username: "${req.params.username}", role: "${req.params.role}") {
+              id
+            }
+          }
+        `,
+      },
+    ).then(() => {
+      res.status(202).send('Success.');
+      next();
+    }).catch(() => {
+      res.status(500).send('Internal Server Error.');
+      next();
+    });
+  },
+
   // GET api/users/search
   UserSearch(req, res, next) {
     axios.post(`${HelpdeskServiceURI}/api`,

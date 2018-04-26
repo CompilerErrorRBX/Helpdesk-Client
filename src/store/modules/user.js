@@ -40,5 +40,17 @@ export default {
 
       return promise;
     },
+    addRole: (state, data) => {
+      const promise = new Promise((resolve, reject) => {
+        axios.post(`api/user/${data.username}/addRole/${data.role}`)
+          .then((response) => {
+            state.dispatch('getUserData', data.username);
+            resolve(response.data);
+          })
+          .catch(() => reject('Internal Server Error.'));
+      });
+
+      return promise;
+    },
   },
 };

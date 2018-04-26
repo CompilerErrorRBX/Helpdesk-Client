@@ -5,6 +5,7 @@ const authentication = require('../controllers/authenticationController');
 const users = require('../controllers/userController');
 const tickets = require('../controllers/ticketsController');
 const comments = require('../controllers/commentsController');
+const roles = require('../controllers/rolesController');
 
 const appRouter = (router) => {
   router.use((req, res, next) => {
@@ -30,6 +31,7 @@ const appRouter = (router) => {
   router.get('/users/search', users.UserSearch);
   router.get('/user/:user', users.User);
   router.get('/user/:username/data', users.UserData);
+  router.post('/user/:username/addRole/:role', users.UserAddRole);
   router.patch('/user', users.Update);
 
   // Tickets routes
@@ -46,6 +48,9 @@ const appRouter = (router) => {
   // Comment routes
   router.patch('/comment/:commentId', comments.UpdateComment);
   router.delete('/comment/:commentId', comments.DeleteComment);
+
+  // Roles routes
+  router.get('/roles', roles.Roles);
 };
 
 module.exports = appRouter;

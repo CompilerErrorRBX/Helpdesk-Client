@@ -27,12 +27,13 @@
                   {{ `${ticket.requester.firstName} ${ticket.requester.lastName}` }}
                 </div>
                 <h2 class="subheading truncate">{{ ticket.title }}</h2>
-                <v-layout row>
+                <v-layout align-center row>
                   <v-chip
                     class="chip--x-small"
                     :color="statuses[ticket.status]"
                     disabled
                   >{{ ticket.status }}</v-chip>
+                  <div class="caption ml-1">{{ ticket.createdAt | timeSince }}</div>
                   <v-spacer />
                   <span v-if="ticket.technicians.length">
                     <v-icon small>supervisor_account</v-icon>
@@ -89,10 +90,12 @@ export default {
       'In Progress': 'blue-grey white--text',
       Resolved: 'green white--text',
       Closed: 'red white--text',
+      Archived: 'purple white--text',
     },
   }),
   filters: {
     dateTime: date => (moment(date).format('DD MMM YYYY, h:mm a')),
+    timeSince: date => (moment(date).fromNow()),
   },
   methods: {
   },
@@ -150,6 +153,14 @@ export default {
   .comment-field .input-group .input-group--solo {
     .input-group__input, label {
       padding-left: 0;
+    }
+  }
+
+  p {
+    img {
+      max-width: 100%;
+      margin-left: auto;
+      height: auto;
     }
   }
 </style>

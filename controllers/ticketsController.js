@@ -12,7 +12,7 @@ module.exports = {
             jobs(limit: ${req.query.limit}, offset: ${req.query.offset}) {
               totalResults
               items {
-                id title name status
+                id title name status createdAt
                 requester {
                   id firstName lastName
                 }

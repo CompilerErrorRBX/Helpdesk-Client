@@ -84,6 +84,7 @@ const router = new Router({
           },
           beforeEnter: (to, origin, next) => {
             store.dispatch('user/getUserData', to.params.username);
+            store.dispatch('roles/getRoles');
             next();
           },
         },

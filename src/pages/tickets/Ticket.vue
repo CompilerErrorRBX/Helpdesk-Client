@@ -1,6 +1,6 @@
 <template>
   <v-slide-x-reverse-transition>
-    <v-card v-if="ticket" tile>
+    <v-card v-if="ticket" raised tile>
       <v-toolbar card>
         <avatar :user="ticket.requester" no-actions popover />
         <div class="pl-3">
@@ -41,7 +41,27 @@
           </v-list>
         </v-menu>
       </v-toolbar>
-      <v-divider />
+      <v-toolbar class="info-section" dense card>
+        <v-avatar size="36px">
+          <v-icon>info</v-icon>
+        </v-avatar>
+        <span class="caption ml-1">
+          Ticket - {{ ticket.id }}
+        </span>
+        <v-spacer />
+        <v-chip :color="statuses[ticket.status].color">
+          <v-avatar>
+            <v-icon>{{ statuses[ticket.status].icon }}</v-icon>
+          </v-avatar>
+          {{ statuses[ticket.status].title }}
+        </v-chip>
+        <v-chip outline>
+          <v-avatar>
+            <v-icon>attach_money</v-icon>
+          </v-avatar>
+          {{ ticket.bounty }}
+        </v-chip>
+      </v-toolbar>
       <v-card-text class="card-avatar-body">
         <div class="title mb-3">{{ ticket.title }}</div>
         <div v-show="!editing" class="ticket-body" v-html="markdown" />
@@ -58,24 +78,6 @@
           <pre>{{ editText }}</pre>
         </div>
       </v-card-text>
-      <v-toolbar class="info-section" dense card>
-        <v-avatar size="36px">
-          <v-icon>info</v-icon>
-        </v-avatar>
-        <v-spacer />
-        <v-chip :color="statuses[ticket.status].color">
-          <v-avatar>
-            <v-icon>{{ statuses[ticket.status].icon }}</v-icon>
-          </v-avatar>
-          {{ statuses[ticket.status].title }}
-        </v-chip>
-        <v-chip outline>
-          <v-avatar>
-            <v-icon>attach_money</v-icon>
-          </v-avatar>
-          {{ ticket.bounty }}
-        </v-chip>
-      </v-toolbar>
       <v-divider />
       <v-toolbar class="info-section" dense card>
         <v-avatar size="36px">
@@ -91,6 +93,7 @@
           size="32px"
           no-actions
           popover
+          class="ml-1"
         />
         <v-btn
           flat
@@ -284,7 +287,7 @@ export default {
   }
 
   .scrolling {
-    max-height: 550px;
+    max-height: 1000px;
     overflow-y: scroll;
   }
 

@@ -8,12 +8,13 @@
         <v-icon small>navigate_next</v-icon>
         <span class="truncate">{{ ticket.title }}</span>
       </div>
-      <v-layout row>
+      <v-layout align-center row>
         <v-chip
           class="chip--x-small"
           :color="statuses[ticket.status]"
           disabled
         >{{ ticket.status }}</v-chip>
+        <div class="caption ml-1">{{ ticket.createdAt | dateTime }}</div>
         <v-spacer />
         <span v-if="ticket.technicians.length">
           <v-icon small>supervisor_account</v-icon>
@@ -29,6 +30,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   data: () => ({
     statuses: {
@@ -36,8 +39,12 @@ export default {
       'In Progress': 'blue-grey white--text',
       Resolved: 'green white--text',
       Closed: 'red white--text',
+      Archived: 'purple white--text',
     },
   }),
+  filters: {
+    dateTime: date => (moment(date).fromNow()),
+  },
   props: {
     ticket: Object,
   },

@@ -156,13 +156,13 @@ export default {
       const refRegex = /\B@\w+([.\-_]\w+)*/gi;
       const references = this.comment.body.match(refRegex);
       if (references) {
-        const refUsers = [];
+        const refUsers = {};
         references.forEach((ref) => {
           this.$store.dispatch('user/getUser', ref.replace('@', '')).then((user) => {
-            refUsers.push(user);
+            refUsers[user.id] = user;
+            this.referencedUsers = Object.values(refUsers);
           });
         });
-        this.referencedUsers = refUsers;
       }
     },
   },
@@ -208,13 +208,6 @@ export default {
       tab-size: 2;
       font-family: Roboto;
       white-space: pre-wrap;
-    }
-  }
-
-  p {
-    img {
-      width: 100%;
-      height: auto;
     }
   }
 

@@ -74,9 +74,20 @@
                   <v-subheader class="px-0">
                     Roles
                     <v-spacer />
-                    <v-btn icon v-if="currentUser.hasRole('Admin')">
-                      <v-icon>add</v-icon>
-                    </v-btn>
+                    <v-menu
+                      offset-y
+                      v-if="currentUser.hasRole('Admin')"
+                    >
+                      <v-btn slot="activator" icon>
+                        <v-icon>add</v-icon>
+                      </v-btn>
+                      <v-list dense>
+                        <v-list-tile
+                          v-for="role in roles" :key="role.role" @click="addUserRole(role.role)">
+                          <v-list-tile-title>{{ role.role }}</v-list-tile-title>
+                        </v-list-tile>
+                      </v-list>
+                    </v-menu>
                   </v-subheader>
                 </v-flex>
               </v-card-title>
@@ -150,7 +161,16 @@ export default {
     ...mapState({
       currentUser: state => state.app.user,
       user: state => state.user.userProfile,
+      roles: state => state.roles.roles,
     }),
+  },
+  methods: {
+    addUserRole(role) {
+      this.$store.dispatch('user/addRole', {
+        username: this.user.username,
+        role,
+      });
+    },
   },
   beforeRouteUpdate(to, from, next) {
     this.$store.commit('user/setUserProfile', null);

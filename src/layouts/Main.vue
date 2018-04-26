@@ -60,6 +60,7 @@
       dark
       app
       :clipped-left="$vuetify.breakpoint.lgAndUp"
+      :clipped-right="true"
       fixed
     >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-1">

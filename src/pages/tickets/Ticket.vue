@@ -1,6 +1,6 @@
 <template>
   <v-slide-x-reverse-transition>
-    <v-card v-if="ticket" raised tile>
+    <v-card v-if="ticket" tile>
       <v-toolbar card>
         <avatar :user="ticket.requester" no-actions popover />
         <div class="pl-3">

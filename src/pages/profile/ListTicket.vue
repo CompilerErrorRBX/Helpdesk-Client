@@ -3,10 +3,10 @@
     :to="`/tickets/${ticket.id}/${ticket.name}`"
   >
     <v-card-text class="px-0">
-      <div class="body-2 grey--text d-block">
+      <div class="body-2 grey--text d-block truncate">
         {{ `Ticket - ${ticket.id}` }}
         <v-icon small>navigate_next</v-icon>
-        <span class="truncate">{{ ticket.title }}</span>
+        <span>{{ ticket.title }}</span>
       </div>
       <v-layout align-center row>
         <v-chip

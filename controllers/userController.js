@@ -10,7 +10,7 @@ module.exports = {
     cloudinary.uploader.upload(
       upload.path,
       (result) => {
-        axios.patch(`${HelpdeskServiceURI}/user`, { picture: result.url }).then((response) => {
+        axios.patch(`${HelpdeskServiceURI}/user`, { picture: result.secure_url }).then((response) => {
           res.status(202).send(response.data);
           next();
         }).catch(() => {

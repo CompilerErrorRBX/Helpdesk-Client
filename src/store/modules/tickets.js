@@ -9,6 +9,7 @@ export default {
       totalResults: 0,
       items: [],
     },
+    records: null,
     technicians: [],
   },
   mutations: {
@@ -25,6 +26,13 @@ export default {
       state.comments.items = [...state.comments.items, ...comments.items];
       state.comments.moreResults = comments.moreResults;
     },
+    setRecords(state, records) {
+      state.records = records;
+    },
+    appendRecords(state, records) {
+      state.comments.items = [...state.records.items, ...records.items];
+      state.comments.moreResults = records.moreResults;
+    },
     setTechnicians(state, techs) {
       state.technicians = techs;
     },
@@ -36,6 +44,7 @@ export default {
         totalResults: 0,
         items: [],
       });
+      state.commit('setRecords', null);
       state.commit('setTechnicians', []);
     },
     getTickets: (state) => {
@@ -62,6 +71,7 @@ export default {
     setSelected: (state, ticket) => {
       state.commit('setSelected', ticket);
       state.dispatch('getComments', { ticketId: ticket.id, queryString: 'limit=3' });
+      state.dispatch('getRecords', { ticketId: ticket.id, queryString: 'limit=20' });
       state.dispatch('getTechnicians', ticket.id);
     },
     getComments: (state, options) => {
@@ -71,6 +81,20 @@ export default {
             state.commit('setComments', response.data);
           } else {
             state.commit('appendComments', response.data);
+          }
+          resolve(response.data);
+        }).catch(() => reject('Internal Server Error.'));
+      });
+
+      return promise;
+    },
+    getRecords: (state, options) => {
+      const promise = new Promise((resolve, reject) => {
+        axios.get(`api/ticket/${options.ticketId}/records?${options.queryString}`).then((response) => {
+          if (!options.append) {
+            state.commit('setRecords', response.data);
+          } else {
+            state.commit('appendRecords', response.data);
           }
           resolve(response.data);
         }).catch(() => reject('Internal Server Error.'));

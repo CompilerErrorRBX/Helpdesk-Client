@@ -1,4 +1,5 @@
 const axios = require('axios');
+const Records = require('./recordController');
 
 const HelpdeskServiceURI = 'http://127.0.0.1:8080';
 
@@ -97,6 +98,37 @@ module.exports = {
     });
   },
 
+  // GET api/ticket/:ticketId/records
+  TicketRecords(req, res, next) {
+    axios.post(`${HelpdeskServiceURI}/api`,
+      {
+        query: `
+          {
+            records(jobId: ${req.params.ticketId}, limit: ${req.query.limit}, offset: ${req.query.offset}, orderBy: "-createdAt") {
+              totalResults
+              items {
+                id description createdAt
+                user {
+                  id firstName lastName email username picture
+                  roles {
+                    role
+                  }
+                }
+              }
+              moreResults
+            }
+          }
+        `,
+      },
+    ).then((result) => {
+      res.status(200).send(result.data.data.records);
+      next();
+    }).catch(() => {
+      res.status(500).send('Internal Server Error.');
+      next();
+    });
+  },
+
   // GET api/ticket/:ticketId/technicians
   TicketTechnicians(req, res, next) {
     axios.post(`${HelpdeskServiceURI}/api`,
@@ -129,6 +161,7 @@ module.exports = {
   SubmitComment(req, res, next) {
     axios.post(`${HelpdeskServiceURI}/job/${req.params.ticketId}/comment`, req.body).then((result) => {
       res.status(201).send(result.data);
+      Records.CreateRecord(req, 'Added a comment.');
       next();
     }).catch(() => {
       res.status(500).send('Internal Server Error.');
@@ -164,6 +197,7 @@ module.exports = {
       },
     ).then((result) => {
       res.status(202).send(result.data.data);
+      Records.CreateRecord(req, 'Assigned himself as a `Technician`.');
       next();
     }).catch(() => {
       res.status(500).send('Internal Server Error.');
@@ -191,6 +225,7 @@ module.exports = {
       },
     ).then((result) => {
       res.status(202).send(result.data.data);
+      Records.CreateRecord(req, `Updated the status to \`${req.params.status}\`.`);
       next();
     }).catch(() => {
       res.status(500).send('Internal Server Error.');
@@ -218,6 +253,7 @@ module.exports = {
       },
     ).then((result) => {
       res.status(202).send(result.data.data);
+      Records.CreateRecord(req, 'Updated the ticket description.');
       next();
     }).catch(() => {
       res.status(500).send('Internal Server Error.');

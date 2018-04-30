@@ -129,7 +129,7 @@ const router = new Router({
 router.beforeEach((to, origin, next) => {
   const parentName = to.meta.parentName ? to.meta.parentName : null;
   const pageName = to.meta.parentName ? to.meta.parentName : to.name;
-  document.title = `Heldesk - ${parentName !== null ? parentName : ''} ${to.name}`;
+  document.title = `Helpdesk - ${parentName !== null ? parentName : ''} ${to.name}`;
   store.dispatch('app/setPageName', pageName);
   store.dispatch('app/setTheme', to.meta.theme ? to.meta.theme : {});
   if (to.matched.some(record => record.meta.login)) {

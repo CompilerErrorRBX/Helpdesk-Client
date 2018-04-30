@@ -37,9 +37,10 @@ const appRouter = (router) => {
   // Tickets routes
   router.get('/tickets', tickets.Tickets);
   router.get('/tickets/:ticketId/:ticketName', tickets.Ticket);
-  router.post('/tickets', tickets.CreateTicket);
   router.get('/ticket/:ticketId/comments', tickets.TicketComments);
+  router.get('/ticket/:ticketId/records', tickets.TicketRecords);
   router.get('/ticket/:ticketId/technicians', tickets.TicketTechnicians);
+  router.post('/tickets', tickets.CreateTicket);
   router.post('/ticket/:ticketId/comment', tickets.SubmitComment);
   router.post('/ticket/:ticketId/technician', tickets.AddTechnician);
   router.post('/ticket/:ticketId/status/:status', tickets.UpdateStatus);

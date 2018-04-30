@@ -14,44 +14,6 @@
           </v-toolbar>
           <v-slide-y-transition>
             <v-list two-line v-if="tickets">
-              <!-- <v-card
-                v-for="ticket in tickets.items"
-                :key="ticket.id"
-                hover
-                ripple
-                tile
-                :class="{
-                  'elevation-10': selected && ticket.id === selected.id,
-                  'selected-ticket': selected && ticket.id === selected.id,
-                }"
-                :to="`/tickets/${ticket.id}/${ticket.name}`"
-              >
-                <v-card-text>
-                  <div class="body-2 grey--text d-block">
-                    {{ `Ticket - ${ticket.id}` }}
-                    <v-icon small>navigate_next</v-icon>
-                    {{ `${ticket.requester.firstName} ${ticket.requester.lastName}` }}
-                  </div>
-                  <h2 class="subheading truncate">{{ ticket.title }}</h2>
-                  <v-layout align-center row>
-                    <v-chip
-                      class="chip--x-small"
-                      :color="statuses[ticket.status]"
-                      disabled
-                    >{{ ticket.status }}</v-chip>
-                    <div class="caption ml-1">{{ ticket.createdAt | timeSince }}</div>
-                    <v-spacer />
-                    <span v-if="ticket.technicians.length">
-                      <v-icon small>supervisor_account</v-icon>
-                      <span class="caption">{{ ticket.technicians.length }}</span>
-                    </span>
-                    <span class="ml-1" v-if="ticket.comments.length">
-                      <v-icon small>comment</v-icon>
-                      <span class="caption">{{ ticket.comments.length }}</span>
-                    </span>
-                  </v-layout>
-                </v-card-text>
-              </v-card> -->
               <list-ticket
                 v-for="ticket in tickets.items"
                 :key="ticket.id"
@@ -97,22 +59,14 @@
           </v-list>
         </v-navigation-drawer>
         <!-- History items -->
-        <!-- <v-list v-show="showHistory" three-line width="300px">
-          <v-list-tile>
-            <v-list-tile-avatar>
-              <avatar :user="user" />
-            </v-list-tile-avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>
-                {{ user.firstName }} {{ user.lastName }}
-              </v-list-tile-title>
-              <span class="caption">{{ selected.createdAt | timeSince }}</span>
-              <v-list-tile-sub-title>
-                Updated status to {{ selected.status }}
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list> -->
+        <div class="records" v-if="records">
+          <v-list v-show="showHistory">
+            <ticket-record v-for="record in records.items" :key="record.id" :record="record" />
+          </v-list>
+        </div>
+        <v-layout align-center justify-center v-else>
+          <v-progress-circular indeterminate color="secondary" />
+        </v-layout>
       </v-layout>
     </v-navigation-drawer>
     <ticket-modal>
@@ -137,10 +91,11 @@ import moment from 'moment';
 import Avatar from '../components/Avatar';
 import TicketModal from '../components/TicketModal';
 import ListTicket from './profile/ListTicket';
+import TicketRecord from '../components/Record';
 
 export default {
   name: 'Tickets',
-  components: { Avatar, TicketModal, ListTicket },
+  components: { Avatar, TicketModal, ListTicket, TicketRecord },
   computed: {
     ...mapState({
       user: state => state.app.user,
@@ -148,6 +103,7 @@ export default {
       selected: state => state.tickets.selected,
       comments: state => state.tickets.comments,
       technicians: state => state.tickets.technicians,
+      records: state => state.tickets.records,
     }),
   },
   data: () => ({
@@ -178,6 +134,12 @@ export default {
 </script>
 
 <style lang="scss">
+  .records {
+    max-height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
   .history-drawer {
     border-left: 1px;
     .list {

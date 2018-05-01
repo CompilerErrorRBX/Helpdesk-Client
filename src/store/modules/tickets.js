@@ -30,8 +30,8 @@ export default {
       state.records = records;
     },
     appendRecords(state, records) {
-      state.comments.items = [...state.records.items, ...records.items];
-      state.comments.moreResults = records.moreResults;
+      state.records.items = [...state.records.items, ...records.items];
+      state.records.moreResults = records.moreResults;
     },
     setTechnicians(state, techs) {
       state.technicians = techs;
@@ -71,7 +71,7 @@ export default {
     setSelected: (state, ticket) => {
       state.commit('setSelected', ticket);
       state.dispatch('getComments', { ticketId: ticket.id, queryString: 'limit=3' });
-      state.dispatch('getRecords', { ticketId: ticket.id, queryString: 'limit=20' });
+      state.dispatch('getRecords', { ticketId: ticket.id, queryString: 'limit=10' });
       state.dispatch('getTechnicians', ticket.id);
     },
     getComments: (state, options) => {
@@ -119,6 +119,7 @@ export default {
             ticketId: comment.ticketId,
             queryString: 'limit=3',
           });
+          state.dispatch('getRecords', { ticketId: comment.ticketId, queryString: 'limit=10' });
           resolve(response.data);
         }).catch(() => reject('Internal Server Error.'));
       });
@@ -129,6 +130,7 @@ export default {
       const promise = new Promise((resolve, reject) => {
         axios.post(`api/ticket/${ticketId}/technician`).then((response) => {
           state.dispatch('getTechnicians', ticketId);
+          state.dispatch('getRecords', { ticketId, queryString: 'limit=10' });
           resolve(response.data);
         }).catch(() => reject('Internal Server Error.'));
       });

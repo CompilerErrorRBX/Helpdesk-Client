@@ -208,7 +208,7 @@ export default {
         this.commentsLoading = true;
         this.$store.dispatch('tickets/getComments', {
           ticketId: this.$store.state.tickets.selected.id,
-          queryString: `limit=5&offset=${this.comments.items.length}`,
+          queryString: `limit=10&offset=${this.comments.items.length}`,
           append: true,
         }).finally(() => {
           this.commentsLoading = false;

@@ -62,6 +62,7 @@
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       :clipped-right="$vuetify.breakpoint.lgAndUp"
       fixed
+      class="main-toolbar"
     >
       <v-toolbar-title style="width: 300px" class="ml-0 pl-1">
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -140,5 +141,8 @@ export default {
     .chip__content {
       padding: 6px;
     }
+  }
+  .main-toolbar {
+    z-index: 4;
   }
 </style>

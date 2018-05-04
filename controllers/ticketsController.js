@@ -129,6 +129,31 @@ module.exports = {
     });
   },
 
+  // GET api/ticket/:ticketId/labels
+  TicketLabels(req, res, next) {
+    axios.post(`${HelpdeskServiceURI}/api`,
+      {
+        query: `
+          {
+            labels(jobId: ${req.params.ticketId}, limit: ${req.query.limit}, offset: ${req.query.offset}, orderBy: "-createdAt") {
+              totalResults
+              items {
+                id label createdAt
+              }
+              moreResults
+            }
+          }
+        `,
+      },
+    ).then((result) => {
+      res.status(200).send(result.data.data.labels);
+      next();
+    }).catch(() => {
+      res.status(500).send('Internal Server Error.');
+      next();
+    });
+  },
+
   // GET api/ticket/:ticketId/technicians
   TicketTechnicians(req, res, next) {
     axios.post(`${HelpdeskServiceURI}/api`,
@@ -198,6 +223,51 @@ module.exports = {
     ).then((result) => {
       res.status(202).send(result.data.data);
       Records.CreateRecord(req, 'Assigned himself as a `Technician`.');
+      next();
+    }).catch(() => {
+      res.status(500).send('Internal Server Error.');
+      next();
+    });
+  },
+
+  // POST api/ticket/:ticketId/labels
+  AddLabels(req, res, next) {
+    const labels = encodeURI(req.body.labels.join(','));
+
+    axios.post(`${HelpdeskServiceURI}/api`,
+      {
+        query: `
+          mutation {
+            jobLabelsAdd(jobId: ${req.params.ticketId}, labels: "${labels}") {
+              id
+            }
+          }
+        `,
+      },
+    ).then((result) => {
+      res.status(201).send(result.data.data);
+      next();
+    }).catch(() => {
+      res.status(500).send('Internal Server Error.');
+      next();
+    });
+  },
+
+  // DELETE api/ticket/:ticketId/label/:label
+  RemoveLabel(req, res, next) {
+    axios.post(`${HelpdeskServiceURI}/api`,
+      {
+        query: `
+          mutation {
+            jobLabelRemove(jobId: ${req.params.ticketId}, label: "${req.params.label}") {
+              id label
+            }
+          }
+        `,
+      },
+    ).then((result) => {
+      res.status(202).send(result.data.data);
+      Records.CreateRecord(req, `Removed a label: \`${req.params.label}\`.`);
       next();
     }).catch(() => {
       res.status(500).send('Internal Server Error.');

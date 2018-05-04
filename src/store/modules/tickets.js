@@ -3,14 +3,12 @@ import axios from 'axios';
 export default {
   namespaced: true,
   state: {
-    tickets: [],
+    tickets: null,
     selected: null,
-    comments: {
-      totalResults: 0,
-      items: [],
-    },
+    comments: null,
     records: null,
-    technicians: [],
+    technicians: null,
+    labels: null,
   },
   mutations: {
     setTickets(state, tickets) {
@@ -33,6 +31,13 @@ export default {
       state.records.items = [...state.records.items, ...records.items];
       state.records.moreResults = records.moreResults;
     },
+    setLabels(state, labels) {
+      state.labels = labels;
+    },
+    appendLabels(state, labels) {
+      state.labels.items = [...state.labels.items, ...labels.items];
+      state.labels.moreResults = labels.moreResults;
+    },
     setTechnicians(state, techs) {
       state.technicians = techs;
     },
@@ -48,7 +53,6 @@ export default {
       state.commit('setTechnicians', []);
     },
     getTickets: (state) => {
-      state.commit('setTickets', null);
       const promise = new Promise((resolve, reject) => {
         axios.get('api/tickets').then((response) => {
           state.commit('setTickets', response.data);
@@ -72,6 +76,7 @@ export default {
       state.commit('setSelected', ticket);
       state.dispatch('getComments', { ticketId: ticket.id, queryString: 'limit=3' });
       state.dispatch('getRecords', { ticketId: ticket.id, queryString: 'limit=10' });
+      state.dispatch('getLabels', { ticketId: ticket.id, queryString: 'limit=100' });
       state.dispatch('getTechnicians', ticket.id);
     },
     getComments: (state, options) => {
@@ -95,6 +100,20 @@ export default {
             state.commit('setRecords', response.data);
           } else {
             state.commit('appendRecords', response.data);
+          }
+          resolve(response.data);
+        }).catch(() => reject('Internal Server Error.'));
+      });
+
+      return promise;
+    },
+    getLabels: (state, options) => {
+      const promise = new Promise((resolve, reject) => {
+        axios.get(`api/ticket/${options.ticketId}/labels?${options.queryString}`).then((response) => {
+          if (!options.append) {
+            state.commit('setLabels', response.data);
+          } else {
+            state.commit('appendLabels', response.data);
           }
           resolve(response.data);
         }).catch(() => reject('Internal Server Error.'));
@@ -137,10 +156,31 @@ export default {
 
       return promise;
     },
+    addTicketLabels: (state, data) => {
+      const promise = new Promise((resolve, reject) => {
+        axios.post(`api/ticket/${data.ticketId}/labels`, data).then((response) => {
+          state.dispatch('getLabels', { ticketId: data.ticketId, queryString: 'limit=100' });
+          resolve(response.data);
+        }).catch(() => reject('Internal Server Error.'));
+      });
+
+      return promise;
+    },
+    removeTicketLabel: (state, data) => {
+      const promise = new Promise((resolve, reject) => {
+        axios.post(`api/ticket/${data.ticketId}/label/${data.label}`).then((response) => {
+          state.dispatch('getLabels', { ticketId: data.ticketId, queryString: 'limit=100' });
+          resolve(response.data);
+        }).catch(() => reject('Internal Server Error.'));
+      });
+
+      return promise;
+    },
     updateTicketStatus: (state, ticket) => {
       const promise = new Promise((resolve, reject) => {
         axios.post(`api/ticket/${ticket.id}/status/${ticket.status}`).then((response) => {
-          state.dispatch('setSelected', response.data.jobUpdate);
+          state.state.selected.status = response.data.jobUpdate.status;
+          state.dispatch('getRecords', { ticketId: ticket.id, queryString: 'limit=10' });
           state.dispatch('getTickets');
           resolve(response.data);
         }).catch(() => reject('Internal Server Error.'));
@@ -151,7 +191,8 @@ export default {
     updateTicketDescription: (state, ticket) => {
       const promise = new Promise((resolve, reject) => {
         axios.post(`api/ticket/${ticket.id}/description`, { description: ticket.description }).then((response) => {
-          state.dispatch('setSelected', response.data.jobUpdate);
+          state.state.selected.description = response.data.jobUpdate.description;
+          state.dispatch('getRecords', { ticketId: ticket.id, queryString: 'limit=10' });
           resolve(response.data);
         }).catch(() => reject('Internal Server Error.'));
       });
@@ -161,6 +202,10 @@ export default {
     createTicket: (state, ticket) => {
       const promise = new Promise((resolve, reject) => {
         axios.post('api/tickets', ticket).then((response) => {
+          state.dispatch('addTicketLabels', {
+            ticketId: response.data.id,
+            labels: ticket.labels,
+          });
           state.dispatch('setSelected', response.data);
           resolve(response.data);
         }).catch(() => reject('Internal Server Error.'));

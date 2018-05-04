@@ -27,7 +27,7 @@
               </v-list-tile-content>
               <v-list-tile-action>
                 <v-btn :to="`/profile/${user.username}`" icon>
-                  <v-icon color="grey">person</v-icon>
+                  <v-icon>person</v-icon>
                 </v-btn>
               </v-list-tile-action>
             </v-list-tile>

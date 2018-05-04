@@ -40,11 +40,14 @@ const appRouter = (router) => {
   router.get('/ticket/:ticketId/comments', tickets.TicketComments);
   router.get('/ticket/:ticketId/records', tickets.TicketRecords);
   router.get('/ticket/:ticketId/technicians', tickets.TicketTechnicians);
+  router.get('/ticket/:ticketId/labels', tickets.TicketLabels);
   router.post('/tickets', tickets.CreateTicket);
   router.post('/ticket/:ticketId/comment', tickets.SubmitComment);
   router.post('/ticket/:ticketId/technician', tickets.AddTechnician);
   router.post('/ticket/:ticketId/status/:status', tickets.UpdateStatus);
   router.post('/ticket/:ticketId/description', tickets.UpdateDescription);
+  router.post('/ticket/:ticketId/labels', tickets.AddLabels);
+  router.delete('/ticket/:ticketId/label/:label', tickets.RemoveLabel);
 
   // Comment routes
   router.patch('/comment/:commentId', comments.UpdateComment);

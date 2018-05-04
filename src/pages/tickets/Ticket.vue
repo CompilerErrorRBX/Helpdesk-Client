@@ -49,13 +49,13 @@
           Ticket - {{ ticket.id }}
         </span>
         <v-spacer />
-        <v-chip :color="statuses[ticket.status].color">
+        <v-chip small :color="statuses[ticket.status].color">
           <v-avatar>
             <v-icon>{{ statuses[ticket.status].icon }}</v-icon>
           </v-avatar>
           {{ statuses[ticket.status].title }}
         </v-chip>
-        <v-chip outline>
+        <v-chip small outline>
           <v-avatar>
             <v-icon>attach_money</v-icon>
           </v-avatar>
@@ -82,19 +82,23 @@
       <v-toolbar class="info-section" dense card>
         <v-avatar size="36px">
           <v-icon>supervisor_account</v-icon>
-          {{ technicians.length }}
+          {{ technicians && technicians.length ? technicians.length : '' }}
         </v-avatar>
         <v-spacer />
-        <v-progress-circular v-if="!technicians" indeterminate color="amber" />
-        <avatar
-          v-for="tech in technicians"
-          :key="tech.id"
-          :user="tech"
-          size="32px"
-          no-actions
-          popover
-          class="ml-1"
-        />
+        <v-progress-circular v-if="!technicians" indeterminate size="24" color="secondary" />
+        <v-slide-x-transition>
+          <div v-if="technicians">
+            <avatar
+              v-for="tech in technicians"
+              :key="tech.id"
+              :user="tech"
+              size="32px"
+              no-actions
+              popover
+              class="ml-1"
+            />
+          </div>
+        </v-slide-x-transition>
         <v-btn
           flat
           icon
@@ -105,13 +109,40 @@
         </v-btn>
       </v-toolbar>
       <v-divider />
-      <v-expansion-panel v-if="comments.totalResults > 0" class="elevation-0" :value="true">
+      <v-slide-y-transition>
+        <div v-if="labels">
+          <v-expansion-panel v-if="labels.totalResults > 0" class="elevation-0">
+            <v-expansion-panel-content lazy>
+              <div slot="header">
+                <v-icon>label</v-icon>
+                {{ labels && labels.items.length ? labels.items.length : '' }}
+              </div>
+              <v-card-text v-if="labels" class="card-avatar-body pt-0 pb-1">
+                <v-chip
+                  v-for="label in labels.items"
+                  :key="label.id"
+                  label
+                  small
+                  :close="
+                    user.id === ticket.requester.id ||
+                    (user.isTechnician() && !user.hasJob(ticket.id)) ||
+                    user.hasRole('Admin')
+                  "
+                >
+                  {{ label.label }}
+                </v-chip>
+              </v-card-text>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+        </div>
+      </v-slide-y-transition>
+      <v-divider />
+      <v-expansion-panel v-if="comments && comments.totalResults > 0" class="elevation-0">
         <v-expansion-panel-content lazy :value="true">
           <div slot="header">
             <v-icon>comment</v-icon>
             {{ comments.totalResults }}
           </div>
-          <v-divider />
           <div
             :class="{ scrolling: loadMoreComments }"
             v-scroll:#container="onScroll"
@@ -135,6 +166,10 @@
           <v-divider />
         </v-expansion-panel-content>
       </v-expansion-panel>
+      <v-layout v-if="!comments" class="py-2" justify-center align-center>
+        <v-progress-circular indeterminate color="secondary" />
+      </v-layout>
+      <v-divider />
       <comment-box placeholder="Add a comment..." />
     </v-card>
   </v-slide-x-reverse-transition>
@@ -173,6 +208,7 @@ export default {
       ticket: state => state.tickets.selected,
       comments: state => state.tickets.comments,
       technicians: state => state.tickets.technicians,
+      labels: state => state.tickets.labels,
     }),
   },
   data: () => ({

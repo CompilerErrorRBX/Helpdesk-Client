@@ -75,6 +75,12 @@
         label="Search"
         class="hidden-sm-and-down"
       ></v-text-field>
+      <v-avatar>
+        <v-icon v-if="connected">cloud_done</v-icon>
+        <v-progress-circular v-if="!connected" indeterminate color="secondary">
+          <v-icon>cloud_off</v-icon>
+        </v-progress-circular>
+      </v-avatar>
       <v-spacer></v-spacer>
       <avatar :user="user" popover>
         <v-btn slot="actions" color="primary" flat small @click="logout">Sign out</v-btn>
@@ -122,6 +128,7 @@ export default {
     theme: state => state.app.theme,
     pageName: state => state.app.pageName,
     user: state => state.app.user,
+    connected: state => state.connected,
   }),
   methods: {
     logout() {

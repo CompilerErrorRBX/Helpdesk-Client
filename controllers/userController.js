@@ -127,6 +127,9 @@ module.exports = {
                 }
                 requests {
                   id title createdAt status name
+                  requester {
+                    id firstName lastName
+                  }
                   technicians {
                     id
                   }
@@ -136,6 +139,9 @@ module.exports = {
                 }
                 jobs {
                   id title createdAt status name
+                  requester {
+                    id firstName lastName
+                  }
                   technicians {
                     id
                   }

@@ -19,6 +19,10 @@ module.exports = {
           '^/api': '',
         },
       },
+      '/socket': {
+        target: 'ws://localhost:3001/',
+        ws: true,
+      },
     },
 
     // Various Dev Server settings

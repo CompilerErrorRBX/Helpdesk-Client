@@ -13,7 +13,7 @@
             </v-btn>
           </v-toolbar>
           <v-slide-y-transition>
-            <v-list two-line v-if="tickets">
+            <v-list three-line v-if="tickets">
               <list-ticket
                 v-for="ticket in tickets.items"
                 :key="ticket.id"

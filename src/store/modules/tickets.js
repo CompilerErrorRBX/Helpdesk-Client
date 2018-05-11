@@ -139,8 +139,11 @@ export default {
             queryString: 'limit=3',
           });
           state.dispatch('getRecords', { ticketId: comment.ticketId, queryString: 'limit=10' });
+          state.rootState.client.emit('new comment', response.data);
           resolve(response.data);
-        }).catch(() => reject('Internal Server Error.'));
+        }).catch(() => {
+          reject('Internal Server Error.');
+        });
       });
 
       return promise;

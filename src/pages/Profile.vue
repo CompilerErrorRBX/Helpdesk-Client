@@ -99,7 +99,7 @@
             </v-card>
 
             <v-card v-if="user.requests.length" class="mt-2 elevation-5">
-              <v-list two-line class="pt-0">
+              <v-list three-line class="pt-0">
                 <v-subheader>
                   Requests
                 </v-subheader>
@@ -112,7 +112,7 @@
             </v-card>
 
             <v-card v-if="user.jobs.length" class="mt-2 elevation-5">
-              <v-list two-line class="pt-0">
+              <v-list three-line class="pt-0">
                 <v-subheader>
                   Jobs
                 </v-subheader>

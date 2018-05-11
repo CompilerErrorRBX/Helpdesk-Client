@@ -1,12 +1,17 @@
 <template>
   <v-list-tile
+    ripple
+    active-class="selected-ticket primary--text elevation-4"
     :to="`/tickets/${ticket.id}/${ticket.name}`"
   >
     <v-card-text class="px-0">
-      <div class="body-2 grey--text d-block truncate">
+      <div class="body-2 d-block truncate">
         {{ `Ticket - ${ticket.id}` }}
         <v-icon small>navigate_next</v-icon>
-        <span>{{ ticket.title }}</span>
+        <span>{{ ticket.requester.firstName }} {{ ticket.requester.lastName }}</span>
+      </div>
+      <div class="subheading d-block truncate">
+        {{ ticket.title }}
       </div>
       <v-layout align-center row>
         <v-chip
@@ -51,6 +56,8 @@ export default {
 };
 </script>
 
-<style>
-
+<style lang="scss">
+  a.list__tile.selected-ticket {
+    background-color: rgba(0,0,0,0.05);
+  }
 </style>

@@ -177,7 +177,7 @@ export default {
       { header: 'Software' },
       { name: 'Desktop App', icon: 'code' },
       { name: 'Phone App', icon: 'developer_mode' },
-      { name: 'Website', icon: 'language' },
+      { name: 'Website', icon: 'web' },
       { name: 'Service', icon: 'http' },
       { name: 'Database', icon: 'dns' },
       { divider: true },

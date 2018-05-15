@@ -149,7 +149,10 @@
             ref="container"
             id="container"
           >
-            <comment v-for="comment in comments.items" :key="comment.id" :comment="comment" />
+            <div v-for="comment in comments.items" :key="comment.id">
+              <comment :comment="comment" reply />
+              <v-divider inset />
+            </div>
             <v-layout v-if="commentsLoading" align-center justify-center class="my-2">
               <v-progress-circular indeterminate color="amber" />
             </v-layout>

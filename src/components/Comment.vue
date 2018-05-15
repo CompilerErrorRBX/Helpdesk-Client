@@ -1,6 +1,6 @@
 <template>
   <v-slide-y-transition>
-    <v-card class="comment-card py-1" v-if="comment" flat>
+    <v-card slot="header" class="comment-card py-1" v-if="comment" flat>
       <v-list-tile avatar>
         <v-list-tile-avatar>
           <avatar :user="comment.commenter" no-actions popover />
@@ -19,9 +19,9 @@
             {{ comment.createdAt | dateTime }}
           </v-list-tile-sub-title>
         </v-list-tile-content>
-        <!-- <v-btn class="mr-0 hidden-until-hover" small icon>
+        <v-btn v-if="reply" class="mr-0 hidden-until-hover" small icon>
           <v-icon>reply</v-icon>
-        </v-btn> -->
+        </v-btn>
         <v-menu offset-y v-if="user.id === comment.commenterId || user.hasRole('Admin')">
           <v-btn slot="activator" class="mr-0 hidden-until-hover" icon small>
             <v-icon>more_vert</v-icon>
@@ -77,6 +77,7 @@ import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 
 import Avatar from '../components/Avatar';
+import Comment from '../components/Comment';
 
 const md = new MarkdownIt({
   html: false,
@@ -91,7 +92,7 @@ const md = new MarkdownIt({
 
 export default {
   name: 'Comment',
-  components: { Avatar },
+  components: { Avatar, Comment },
   computed: {
     markdown() {
       return md.render(this.comment.body);
@@ -172,11 +173,20 @@ export default {
   },
   props: {
     comment: Object,
+    reply: Boolean,
   },
 };
 </script>
 
 <style lang="scss">
+  .comment .expansion-panel__header {
+    padding: 0;
+  }
+
+  .comment .comment-expand {
+    max-width: 100%;
+  }
+
   .comment-card {
 
     .hidden-until-hover {

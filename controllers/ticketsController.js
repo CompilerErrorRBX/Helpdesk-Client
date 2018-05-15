@@ -83,6 +83,15 @@ module.exports = {
                     role
                   }
                 }
+                replies {
+                  id commenterId body createdAt
+                  commenter {
+                    id firstName lastName email username picture
+                    roles {
+                      role
+                    }
+                  }
+                }
               }
               moreResults
             }

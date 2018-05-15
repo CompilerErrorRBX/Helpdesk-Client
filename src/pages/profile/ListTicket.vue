@@ -1,7 +1,7 @@
 <template>
   <v-list-tile
     ripple
-    active-class="selected-ticket primary--text elevation-4"
+    active-class="selected-ticket primary--text"
     :to="`/tickets/${ticket.id}/${ticket.name}`"
   >
     <v-card-text class="px-0">

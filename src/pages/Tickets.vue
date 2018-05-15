@@ -85,7 +85,7 @@
             id="activity-container"
             ref="activity-container"
           >
-            <v-subheader class="pt-1">
+            <v-subheader class="mt-2 pt-1">
               <v-icon class="pl-2 pr-4">playlist_add_check</v-icon>
               Activity ({{ records.totalResults }})
             </v-subheader>

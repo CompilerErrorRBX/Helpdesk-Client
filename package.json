@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --colors --config build/webpack.dev.conf.js",
     "start": "npm run server & npm run dev",
-    "server": "NODE_PATH=$NODE_PATH:./src node server",
+    "server": "node server",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",

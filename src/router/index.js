@@ -5,6 +5,7 @@ import Profile from '@/pages/Profile';
 import Login from '@/pages/Login';
 import Tickets from '@/pages/Tickets';
 import TermsOfService from '@/pages/TermsOfService';
+import Feedback from '@/pages/Feedback';
 
 import MainLayout from '@/layouts/Main';
 import BlankLayout from '@/layouts/Blank';
@@ -67,6 +68,15 @@ const router = new Router({
 
             next();
           },
+        },
+        {
+            path: '/feedback',
+            name: 'Feedback',
+            component: Feedback,
+            meta: {
+              login: true,
+              theme: { primary: 'blue' },
+            },
         },
       ],
     },

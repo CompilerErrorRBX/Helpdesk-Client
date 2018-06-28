@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --colors --config build/webpack.dev.conf.js",
     "start": "npm run server & npm run dev",
-    "server": "NODE_PATH=$NODE_PATH:./src node server",
+    "server": "node server",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
@@ -34,6 +34,23 @@
     "vuetify": "^1.0.16",
     "vuex": "^3.0.1",
     "vuex-socketio-plugin": "0.0.1"
+  },
+  "scripts": {
+
+    "dev": "webpack-dev-server --colors --config build/webpack.dev.conf.js",
+
+    "start": "npm run server & npm run dev",
+
+    "server": "node server",
+
+    "unit": "jest --config test/unit/jest.conf.js --coverage",
+
+    "test": "npm run unit",
+
+    "lint": "eslint --ext .js,.vue src test/unit",
+
+    "build": "node build/build.js"
+
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

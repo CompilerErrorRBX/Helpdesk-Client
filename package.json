@@ -21,7 +21,7 @@
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-formidable": "^1.0.0",
-    "highlight.js": "^9.12.0",
+    "highlight.js": "^10.4.1",
     "markdown-it": "^8.4.1",
     "moment": "^2.22.0",
     "node-sass": "^6.0.1",

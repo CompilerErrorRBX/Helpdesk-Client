@@ -1,5 +1,5 @@
 <template>
-  <v-list-tile
+  <v-list-item
     ripple
     active-class="selected-ticket primary--text"
     :to="`/tickets/${ticket.id}/${ticket.name}`"
@@ -7,7 +7,7 @@
     <v-card-text class="px-0">
       <div class="body-2 d-block truncate">
         {{ `Ticket - ${ticket.id}` }}
-        <v-icon small>navigate_next</v-icon>
+        <v-icon small>mdi-navigate_next</v-icon>
         <span>{{ ticket.requester.firstName }} {{ ticket.requester.lastName }}</span>
       </div>
       <div class="subheading d-block truncate">
@@ -22,16 +22,16 @@
         <div class="caption ml-1">{{ ticket.createdAt | dateTime }}</div>
         <v-spacer />
         <span v-if="ticket.technicians.length">
-          <v-icon small>supervisor_account</v-icon>
+          <v-icon small>mdi-supervisor_account</v-icon>
           <span class="caption">{{ ticket.technicians.length }}</span>
         </span>
         <span class="ml-1" v-if="ticket.comments.length">
-          <v-icon small>comment</v-icon>
+          <v-icon small>mdi-comment</v-icon>
           <span class="caption">{{ ticket.comments.length }}</span>
         </span>
       </v-layout>
     </v-card-text>
-  </v-list-tile>
+  </v-list-item>
 </template>
 
 <script>

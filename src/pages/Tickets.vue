@@ -9,7 +9,7 @@
             </v-toolbar-title>
             <v-spacer />
             <v-btn icon>
-              <v-icon>filter_list</v-icon>
+              <v-icon>mdi-filter_list</v-icon>
             </v-btn>
           </v-toolbar>
           <v-slide-y-transition>
@@ -34,16 +34,8 @@
       justify-center
       v-else-if="tickets && !tickets.items.length"
     >
-      <v-icon x-large>receipt</v-icon>
+      <v-icon x-large>mdi-receipt</v-icon>
       <v-subheader class="headline">No active tickets</v-subheader>
-      <ticket-modal>
-      <v-btn
-        color="primary"
-        slot="activator"
-      >
-        Log a Ticket
-      </v-btn>
-    </ticket-modal>
     </v-layout>
     <v-navigation-drawer
       :clipped="true"
@@ -64,16 +56,16 @@
           class="history-drawer"
         >
           <v-list class="pt-2">
-            <v-list-tile @click="showHistory = !showHistory">
-              <v-list-tile-action>
-                <v-icon style="transform: rotate(90deg);">menu</v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
-            <v-list-tile @click="1">
-              <v-list-tile-action>
-                <v-icon>history</v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
+            <v-list-item @click="showHistory = !showHistory">
+              <v-list-item-action>
+                <v-icon style="transform: rotate(90deg);">mdi-menu</v-icon>
+              </v-list-item-action>
+            </v-list-item>
+            <v-list-item @click="1">
+              <v-list-item-action>
+                <v-icon>mdi-history</v-icon>
+              </v-list-item-action>
+            </v-list-item>
           </v-list>
         </v-navigation-drawer>
         <!-- History items -->
@@ -86,7 +78,7 @@
             ref="activity-container"
           >
             <v-subheader class="mt-2 pt-1">
-              <v-icon class="pl-2 pr-4">playlist_add_check</v-icon>
+              <v-icon class="pl-2 pr-4">mdi-playlist_add_check</v-icon>
               Activity ({{ records.totalResults }})
             </v-subheader>
             <v-list>
@@ -115,24 +107,13 @@
             justify-center
             v-else-if="records && !records.items.length"
           >
-            <v-icon x-large>history</v-icon>
+            <v-icon x-large>mdi-history</v-icon>
             <v-subheader class="headline">No activity yet</v-subheader>
           </v-layout>
         </v-layout>
       </v-layout>
     </v-navigation-drawer>
-    <ticket-modal>
-      <v-btn
-        fab
-        fixed
-        bottom
-        right
-        color="amber"
-        slot="activator"
-      >
-        <v-icon>add</v-icon>
-      </v-btn>
-    </ticket-modal>
+    <ticket-modal />
   </div>
 </template>
 

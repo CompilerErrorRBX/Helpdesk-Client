@@ -14,23 +14,23 @@
         </v-avatar>
         <v-card>
           <v-list>
-            <v-list-tile avatar>
-              <v-list-tile-avatar>
+            <v-list-item avatar>
+              <v-list-item-avatar>
                 <v-avatar :color="!src ? color : 'transparent'" size="42px">
                   <img v-if="src" :src="src" />
                   <span v-else class="avatar-alt">{{ alt }}</span>
                 </v-avatar>
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title>{{ fullname }}</v-list-tile-title>
-                <v-list-tile-sub-title>{{ user.username }}</v-list-tile-sub-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>{{ fullname }}</v-list-item-title>
+                <v-list-item-sub-title>{{ user.username }}</v-list-item-sub-title>
+              </v-list-item-content>
+              <v-list-item-action>
                 <v-btn :to="`/profile/${user.username}`" icon>
-                  <v-icon>person</v-icon>
+                  <v-icon>mdi-person</v-icon>
                 </v-btn>
-              </v-list-tile-action>
-            </v-list-tile>
+              </v-list-item-action>
+            </v-list-item>
             <div class="px-2">
               <v-chip small v-for="role in user.roles" :key="role.id">
                 {{ role.role }}

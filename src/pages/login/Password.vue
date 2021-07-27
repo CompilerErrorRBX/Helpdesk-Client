@@ -4,7 +4,7 @@
       <div>
         <h3 class="headline">Welcome</h3>
         <div class="subtitle">
-          <v-icon color="primary">account_circle</v-icon>
+          <v-icon color="primary">mdi-account_circle</v-icon>
           {{ username }}
         </div>
       </div>

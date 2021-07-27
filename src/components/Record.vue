@@ -1,17 +1,17 @@
 <template>
   <v-slide-y-transition>
     <v-card flat>
-      <v-list-tile avatar>
-        <v-list-tile-avatar>
+      <v-list-item avatar>
+        <v-list-item-avatar>
           <avatar :user="record.user" no-actions popover />
-        </v-list-tile-avatar>
-        <v-list-tile-content>
-          <v-list-tile-title class="body-2">
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="body-2">
             {{ `${record.user.firstName} ${record.user.lastName}` }}
             <span class="caption">{{ record.createdAt | timeSince }}</span>
-          </v-list-tile-title>
-        </v-list-tile-content>
-      </v-list-tile>
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
       <v-card-text class="pt-0 pb-2 record-inset" v-html="markdown" />
       <v-divider style="margin-left: 72px; margin-right: 16px;" />
     </v-card>

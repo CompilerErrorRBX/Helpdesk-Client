@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const HelpdeskServiceURI = 'http://127.0.0.1:8080';
+const HelpdeskServiceURI = process.env.HELPDESK_SERVER_URI;
 
 module.exports = {
   // GET api/roles

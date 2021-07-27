@@ -7,7 +7,7 @@
       v-if="$vuetify.breakpoint.mdAndUp"
     >
       <v-btn @click="$router.go(-1)" icon>
-        <v-icon>arrow_back</v-icon>
+        <v-icon>mdi-arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title style="width: 300px" class="ml-0 pl-1">
         <span class="hidden-sm-and-down">Profile</span>
@@ -35,7 +35,7 @@
                     flat
                   >
                     <v-btn @click="$router.go(-1)" icon>
-                      <v-icon>arrow_back</v-icon>
+                      <v-icon>mdi-arrow_back</v-icon>
                     </v-btn>
                   </v-toolbar>
                 </div>
@@ -53,14 +53,14 @@
                     icon
                     class="edit-icon show-on-hover"
                   >
-                    <v-icon class="edit-icon show-on-hover" color="white">photo_camera</v-icon>
+                    <v-icon class="edit-icon show-on-hover" color="white">mdi-photo_camera</v-icon>
                   </v-btn>
                 </avatar>
               </v-avatar>
               <v-toolbar dense color="transparent" flat>
                 <v-spacer />
-                <v-btn class="ml-0" icon><v-icon color="grey darken-2">message</v-icon></v-btn>
-                <v-btn class="ml-0" icon><v-icon color="grey darken-2">more_vert</v-icon></v-btn>
+                <v-btn class="ml-0" icon><v-icon color="grey darken-2">mdi-message</v-icon></v-btn>
+                <v-btn class="ml-0" icon><v-icon color="grey darken-2">mdi-more_vert</v-icon></v-btn>
               </v-toolbar>
               <v-card-text class="profile-bio" v-if="user.profile" v-html="profileMarkdown" />
             </v-card>
@@ -79,13 +79,13 @@
                       v-if="currentUser.hasRole('Admin')"
                     >
                       <v-btn slot="activator" icon>
-                        <v-icon>add</v-icon>
+                        <v-icon>mdi-plus</v-icon>
                       </v-btn>
                       <v-list dense>
-                        <v-list-tile
+                        <v-list-item
                           v-for="role in roles" :key="role.role" @click="addUserRole(role.role)">
-                          <v-list-tile-title>{{ role.role }}</v-list-tile-title>
-                        </v-list-tile>
+                          <v-list-item-title>{{ role.role }}</v-list-item-title>
+                        </v-list-item>
                       </v-list>
                     </v-menu>
                   </v-subheader>

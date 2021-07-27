@@ -1,9 +1,9 @@
 <template>
   <v-card flat>
     <div class="comment-box">
-      <v-list-tile-avatar>
+      <v-list-item-avatar>
         <avatar :user="user" />
-      </v-list-tile-avatar>
+      </v-list-item-avatar>
       <div class="comment-container">
         <label v-show="!focused && !text.length" class="placeholder">{{ placeholder }}</label>
         <div
@@ -24,10 +24,10 @@
         <v-card flat>
           <v-toolbar dense card>
             <v-btn class="ml-3 mr-0" icon>
-              <v-icon color="grey darken-1">add_a_photo</v-icon>
+              <v-icon color="grey darken-1">mdi-plus_a_photo</v-icon>
             </v-btn>
             <v-btn icon>
-              <v-icon color="grey darken-1">attach_file</v-icon>
+              <v-icon color="grey darken-1">mdi-attach_file</v-icon>
             </v-btn>
             <v-spacer />
             <v-btn flat color="primary" @click="submitComment">

@@ -1,6 +1,19 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
-    <slot name="activator" slot="activator" />
+    <!-- <slot name="activator" v-slot:activator="{ on }"  /> -->
+    <template v-slot:activator="{ on }">
+      <v-btn
+        fab
+        fixed
+        bottom
+        right
+        color="amber"
+        slot="activator"
+        v-on="on"
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+    </template>
     <v-card>
       <v-card-title class="title">Log a Ticket</v-card-title>
       <v-stepper v-model="step" vertical>
@@ -49,7 +62,7 @@
                   label="Bounty"
                   id="bounty"
                   name="description"
-                  prepend-icon="attach_money"
+                  prepend-icon="mdi-currency-usd"
                   :rules="bountyRules"
                   v-model="bounty"
                 />
@@ -60,7 +73,7 @@
                   chips
                   tags
                   :items="items"
-                  prepend-icon="label"
+                  prepend-icon="mdi-label"
                   clearable
                   multiple
                   item-text="name"
@@ -79,15 +92,15 @@
                   </template>
                   <template slot="item" slot-scope="data">
                     <template v-if="typeof data.item !== 'object'">
-                      <v-list-tile-content v-text="data.item"></v-list-tile-content>
+                      <v-list-item-content v-text="data.item"></v-list-item-content>
                     </template>
                     <template v-else>
-                      <v-list-tile-avatar>
+                      <v-list-item-avatar>
                         <v-icon>{{ data.item.icon }}</v-icon>
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                        <v-list-tile-title v-html="data.item.name"></v-list-tile-title>
-                      </v-list-tile-content>
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title v-html="data.item.name"></v-list-item-title>
+                      </v-list-item-content>
                     </template>
                   </template>
                 </v-select>
@@ -161,32 +174,32 @@ export default {
     chips: [],
     items: [
       { header: 'Phone/Tablet' },
-      { name: 'iOS Phone', icon: 'phone_iphone' },
-      { name: 'Android Phone', icon: 'phone_android' },
-      { name: 'iOS Tablet', icon: 'tablet_mac' },
-      { name: 'Android Tablet', icon: 'tablet_android' },
+      { name: 'iOS Phone', icon: 'mdi-phone_iphone' },
+      { name: 'Android Phone', icon: 'mdi-phone_android' },
+      { name: 'iOS Tablet', icon: 'mdi-tablet_mac' },
+      { name: 'Android Tablet', icon: 'mdi-tablet_android' },
       { divider: true },
       { header: 'Desktop/Laptop' },
-      { name: 'Windows PC', icon: 'desktop_windows' },
-      { name: 'Linux PC', icon: 'desktop_windows' },
-      { name: 'iMac', icon: 'desktop_mac' },
-      { name: 'Windows Laptop', icon: 'laptop_windows' },
-      { name: 'Macbook', icon: 'laptop_mac' },
-      { name: 'Chromebook', icon: 'laptop_chromebook' },
+      { name: 'Windows PC', icon: 'mdi-desktop_windows' },
+      { name: 'Linux PC', icon: 'mdi-desktop_windows' },
+      { name: 'iMac', icon: 'mdi-desktop_mac' },
+      { name: 'Windows Laptop', icon: 'mdi-laptop_windows' },
+      { name: 'Macbook', icon: 'mdi-laptop_mac' },
+      { name: 'Chromebook', icon: 'mdi-laptop_chromebook' },
       { divider: true },
       { header: 'Software' },
-      { name: 'Desktop App', icon: 'code' },
-      { name: 'Phone App', icon: 'developer_mode' },
-      { name: 'Website', icon: 'web' },
-      { name: 'Service', icon: 'http' },
-      { name: 'Database', icon: 'dns' },
+      { name: 'Desktop App', icon: 'mdi-code' },
+      { name: 'Phone App', icon: 'mdi-developer_mode' },
+      { name: 'Website', icon: 'mdi-web' },
+      { name: 'Service', icon: 'mdi-http' },
+      { name: 'Database', icon: 'mdi-dns' },
       { divider: true },
       { header: 'Other' },
-      { name: 'Printer', icon: 'print' },
-      { name: 'Scanner', icon: 'scanner' },
-      { name: 'TV', icon: 'tv' },
-      { name: 'Internet', icon: 'router' },
-      { name: 'Email', icon: 'mail' },
+      { name: 'Printer', icon: 'mdi-print' },
+      { name: 'Scanner', icon: 'mdi-scanner' },
+      { name: 'TV', icon: 'mdi-tv' },
+      { name: 'Internet', icon: 'mdi-router' },
+      { name: 'Email', icon: 'mdi-mail' },
     ],
   }),
   methods: {

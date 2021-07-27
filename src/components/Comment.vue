@@ -1,12 +1,12 @@
 <template>
   <v-slide-y-transition>
     <v-card slot="header" class="comment-card py-1" v-if="comment" flat>
-      <v-list-tile avatar>
-        <v-list-tile-avatar>
+      <v-list-item avatar>
+        <v-list-item-avatar>
           <avatar :user="comment.commenter" no-actions popover />
-        </v-list-tile-avatar>
-        <v-list-tile-content>
-          <v-list-tile-title class="body-2">
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title class="body-2">
             {{ `${comment.commenter.firstName} ${comment.commenter.lastName}` }}
             <v-chip
               v-for="role in comment.commenter.roles"
@@ -14,34 +14,34 @@
               class="chip--x-small"
               disabled
             >{{ role.role }}</v-chip>
-          </v-list-tile-title>
-          <v-list-tile-sub-title class="caption">
+          </v-list-item-title>
+          <v-list-item-sub-title class="caption">
             {{ comment.createdAt | dateTime }}
-          </v-list-tile-sub-title>
-        </v-list-tile-content>
+          </v-list-item-sub-title>
+        </v-list-item-content>
         <v-btn v-if="reply" class="mr-0 hidden-until-hover" small icon>
-          <v-icon>reply</v-icon>
+          <v-icon>mdi-reply</v-icon>
         </v-btn>
         <v-menu offset-y v-if="user.id === comment.commenterId || user.hasRole('Admin')">
           <v-btn slot="activator" class="mr-0 hidden-until-hover" icon small>
-            <v-icon>more_vert</v-icon>
+            <v-icon>mdi-more_vert</v-icon>
           </v-btn>
           <v-list dense>
-            <v-list-tile @click="edit">
-              <v-list-tile-title>
-                <v-icon>edit</v-icon>
+            <v-list-item @click="edit">
+              <v-list-item-title>
+                <v-icon>mdi-edit</v-icon>
                 Edit
-              </v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile @click="destroy">
-              <v-list-tile-title>
-                <v-icon>delete</v-icon>
+              </v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="destroy">
+              <v-list-item-title>
+                <v-icon>mdi-delete</v-icon>
                 Delete
-              </v-list-tile-title>
-            </v-list-tile>
+              </v-list-item-title>
+            </v-list-item>
           </v-list>
         </v-menu>
-      </v-list-tile>
+      </v-list-item>
       <v-card-text v-show="!editing" class="card-avatar-body py-0" v-html="markdown" />
       <v-card-text
         ref="comment"

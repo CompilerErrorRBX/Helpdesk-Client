@@ -77,7 +77,7 @@ export default {
   data() {
     return {
       showPasswords: false,
-      showIcon: 'visibility_off',
+      showIcon: 'mdi-visibility_off',
       valid: false,
       firstname: '',
       firstnameRules: [
@@ -145,7 +145,7 @@ export default {
     },
     showPasswordToggle() {
       this.showPasswords = !this.showPasswords;
-      this.showIcon = this.showPasswords ? 'visibility' : 'visibility_off';
+      this.showIcon = this.showPasswords ? 'mdi-visibility' : 'mdi-visibility_off';
     },
     clearErrors() {
       this.passwordErrors = [];

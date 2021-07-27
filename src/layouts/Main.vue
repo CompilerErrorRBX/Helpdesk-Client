@@ -17,45 +17,45 @@
             no-action
             :to="item.to"
           >
-            <v-list-tile slot="activator">
-              <v-list-tile-content>
-                <v-list-tile-title>
+            <v-list-item slot="activator">
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ item.text }}
-                </v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-            <v-list-tile
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item
               v-for="(child, i) in item.children"
               :key="i"
               :to="child.to"
             >
-              <v-list-tile-action v-if="child.icon">
+              <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
                   {{ child.text }}
-                </v-list-tile-title>
-              </v-list-tile-content>
+                </v-list-item-title>
+              </v-list-item-content>
               <v-chip v-show="child.label" class="chip--x-small red white--text">
                 {{ child.label }}
               </v-chip>
-            </v-list-tile>
+            </v-list-item>
           </v-list-group>
-          <v-list-tile v-else :to="item.to" :key="item.text">
-            <v-list-tile-action>
+          <v-list-item v-else :to="item.to" :key="item.text">
+            <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>
                 {{ item.text }}
-              </v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </template>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar
+    <v-app-bar
       :color="theme.primary"
       dark
       app
@@ -64,31 +64,31 @@
       fixed
       class="main-toolbar"
     >
-      <v-toolbar-title style="width: 300px" class="ml-0 pl-1">
-        <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-app-bar-title style="width: 300px" class="ml-0 pl-1">
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
         <span class="hidden-sm-and-down">{{ pageName }}</span>
-      </v-toolbar-title>
+      </v-app-bar-title>
       <v-text-field
         flat
         solo-inverted
-        prepend-icon="search"
+        prepend-icon="mdi-magnify"
         label="Search"
         class="hidden-sm-and-down"
       ></v-text-field>
       <v-avatar>
-        <v-icon v-if="connected">cloud_done</v-icon>
+        <v-icon v-if="connected">mdi-cloud-check</v-icon>
         <v-progress-circular v-if="!connected" indeterminate color="secondary">
-          <v-icon>cloud_off</v-icon>
+          <v-icon>mdi-cloud-off-outline</v-icon>
         </v-progress-circular>
       </v-avatar>
       <v-spacer></v-spacer>
       <avatar :user="user" popover>
         <v-btn slot="actions" color="primary" flat small @click="logout">Sign out</v-btn>
       </avatar>
-    </v-toolbar>
-    <v-content>
+    </v-app-bar>
+    <v-main>
       <router-view />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
@@ -102,9 +102,9 @@ export default {
   data: () => ({
     drawer: true,
     items: [
-      { icon: 'home', text: 'Home', to: '/' },
+      { icon: 'mdi-home', text: 'Home', to: '/' },
       {
-        icon: 'receipt',
+        icon: 'mdi-receipt',
         text: 'Tickets',
         to: '/tickets',
         opened: true,
@@ -116,11 +116,11 @@ export default {
         ],
       },
       { divider: true, id: 1 },
-      { icon: 'notifications', text: 'Notifications', to: '/notifications' },
+      { icon: 'mdi-inbox', text: 'Notifications', to: '/notifications' },
       { divider: true, id: 2 },
-      { icon: 'settings', text: 'Settings', to: '/settings' },
-      { icon: 'feedback', text: 'Send feedback', to: '/feedback' },
-      { icon: 'help', text: 'Help', to: '/help' },
+      { icon: 'mdi-cog', text: 'Settings', to: '/settings' },
+      // { icon: 'mdi-feedback', text: 'Send feedback', to: '/feedback' },
+      { icon: 'mdi-help-circle', text: 'Help', to: '/help' },
     ],
   }),
   components: { Avatar },

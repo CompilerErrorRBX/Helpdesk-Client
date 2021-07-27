@@ -7,7 +7,7 @@
           <v-progress-circular color="secondary" :value="progress" :width="7" size="72">
             <v-avatar v-if="progress > 1" class="primary" size="64">
               <transition name="bounce">
-                <v-icon class="overlay" color="white" v-if="progress < 100">cloud_upload</v-icon>
+                <v-icon class="overlay" color="white" v-if="progress < 100">mdi-cloud_upload</v-icon>
               </transition>
               <transition name="bounce">
                 <v-icon
@@ -33,7 +33,7 @@
         @dragleave.stop="dragOver = false"
       >
         <input type="file" class="uploader" @drop.stop.prevent="fileUpload" @click.prevent />
-        <v-icon class="upload-icon">cloud_upload</v-icon>
+        <v-icon class="upload-icon">mdi-cloud_upload</v-icon>
         <span class="title">Drag and drop an image here</span>
         <span class="subheader">or</span>
         <v-btn color="primary">
@@ -55,7 +55,7 @@ export default {
     dragOver: false,
     fileData: null,
     uploading: false,
-    uploadIcon: 'check',
+    uploadIcon: 'mdi-check',
     progress: 0,
   }),
   methods: {

@@ -22,7 +22,7 @@ import store from '../store';
 Vue.use(Router);
 
 const router = new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',
@@ -138,28 +138,28 @@ const router = new Router({
 });
 
 router.beforeEach((to, origin, next) => {
-  const parentName = to.meta.parentName ? to.meta.parentName : null;
-  const pageName = to.meta.parentName ? to.meta.parentName : to.name;
-  document.title = `Helpdesk - ${parentName !== null ? parentName : ''} ${to.name}`;
-  store.dispatch('app/setPageName', pageName);
-  store.dispatch('app/setTheme', to.meta.theme ? to.meta.theme : {});
-  if (to.matched.some(record => record.meta.login)) {
-    store.dispatch('app/authenticate').then(() => {
-      next();
-    }).catch(() => {
-      router.push('/login');
-    });
-  }
-  if (to.matched.some(record => record.meta.TOS)) {
-    store.dispatch('app/authenticate').then((user) => {
-      if (!user.agreedTOS) {
-        router.push('/terms');
-      }
-      next();
-    }).catch(() => {
-      router.push('/login');
-    });
-  }
+  // const parentName = to.meta.parentName ? to.meta.parentName : null;
+  // const pageName = to.meta.parentName ? to.meta.parentName : to.name;
+  // document.title = `Helpdesk - ${parentName !== null ? parentName : ''} ${to.name}`;
+  // store.dispatch('app/setPageName', pageName);
+  // store.dispatch('app/setTheme', to.meta.theme ? to.meta.theme : {});
+  // if (to.matched.some(record => record.meta.login)) {
+  //   store.dispatch('app/authenticate').then(() => {
+  //     next();
+  //   }).catch(() => {
+  //     router.push('/login');
+  //   });
+  // }
+  // if (to.matched.some(record => record.meta.TOS)) {
+  //   store.dispatch('app/authenticate').then((user) => {
+  //     if (!user.agreedTOS) {
+  //       router.push('/terms');
+  //     }
+  //     next();
+  //   }).catch(() => {
+  //     router.push('/login');
+  //   });
+  // }
   next();
 });
 

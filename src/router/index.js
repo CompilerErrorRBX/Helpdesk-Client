@@ -70,13 +70,13 @@ const router = new Router({
           },
         },
         {
-            path: '/feedback',
-            name: 'Feedback',
-            component: Feedback,
-            meta: {
-              login: true,
-              theme: { primary: 'blue' },
-            },
+          path: '/feedback',
+          name: 'Feedback',
+          component: Feedback,
+          meta: {
+            login: true,
+            theme: { primary: 'blue' },
+          },
         },
       ],
     },

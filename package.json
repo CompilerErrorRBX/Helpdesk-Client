@@ -14,7 +14,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "body-parser": "^1.18.2",
     "cloudinary": "^1.11.0",
     "compromise": "^11.6.0",
@@ -24,7 +24,7 @@
     "highlight.js": "^9.12.0",
     "markdown-it": "^8.4.1",
     "moment": "^2.22.0",
-    "node-sass": "^4.8.3",
+    "node-sass": "^6.0.1",
     "npm": "^5.8.0",
     "sass-loader": "^6.0.7",
     "socket.io": "^2.1.0",
